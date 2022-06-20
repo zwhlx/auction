@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第五小组拍卖系统</title>
+		<!--导入核心文件-->
+		<script src="js/jquery-3.6.0.js"></script>
+		<link href="css/body.css" rel="stylesheet" type="text/css"/>
+
+		<link href="css/topnav.css" rel="stylesheet" type="text/css"/>
+		<link href="css/reg.css" rel="stylesheet" type="text/css"/>
+		<script src="js/login.js"></script>
+	</head>
+	<body>
+		
+		<!--头部-->
+		<header class="header">
+			<h1>拍卖系统</h1>
+			<span class="pull-left" ><a href="index.html">首页</a></span>
+			<span class="pull-right"><small>欢迎访问</small><b>第五小组拍卖系统</b></span>
+		</header>
+		<!--主体-->
+		
+		<div class="main">
+			<!--透明层 -->
+			<div class="regDiv">
+				<p>新用户注册</p>
+				<!--表单开始-->
+				<form id="form-reg">
+					<!--用户名-->
+					<div class="label">
+						<label>用户名:</label>
+						<input name="username" type="text" placeholder="请输入用户名">
+					</div>
+					<!--密码-->
+					<div class="label">
+						<label>密码:</label>
+						<input name="password" type="password" placeholder="请输入密码">
+					</div>
+					<!--确认密码-->
+					<div class="label">
+						<label> 确认密码:</label>
+						<input type="password" placeholder="请再次输入密码">
+					</div>
+					<!--提交按钮-->
+					<div class="btn">
+						<input id="btn-reg" type="button" value="立即注册" onclick="reg()"/>
+						<span class="pull-right"><small>已经有账号？</small><a href="login.html">登录</a></span>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<!--页脚开始-->
+		<footer class="footer">
+			<!-- 页面底部-备案号 #footer -->
+			<div>
+				Copyright © 2022  <b style="color: #0000ff;">20移动2班第五小组</b> 版权所有
+			</div>
+		</footer>
+		<!--页脚结束-->
+	</body>
+</html>

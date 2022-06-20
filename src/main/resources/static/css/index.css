@@ -1,0 +1,52 @@
+
+
+	 
+.main .label h3{
+	font-size: 25px;
+	color: #000000;
+}
+.main .label h3:before{
+	white-space: pre;
+	content: "  ";
+	background-color: #aaff7f;
+	margin-right: 20px;
+}
+
+.main .label a{
+	color: #000;
+	text-decoration: none;
+	font-size: 20px;
+	margin-right: 20px;
+}
+
+.main .label a:hover{
+	color: #00aaff;
+}
+
+
+.responsive .img {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+.responsive .img:hover {
+    border: 1px solid #777;
+}
+
+.responsive .img img {
+    width: 100%;
+    height: auto;
+}
+
+.responsive .desc {
+    padding: 15px;
+    text-align: center;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}

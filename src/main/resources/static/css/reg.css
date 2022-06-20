@@ -1,0 +1,76 @@
+/* 头部 */
+.header {
+	padding: 0px;
+}
+/* 头部文字 */
+.header .pull-right{
+	float: right;
+}
+
+.header .pull-left{
+	float: left;
+}
+
+.header a{
+	color: #000;
+	text-decoration: none;
+}
+.header a:hover{
+	color: #ff0000;
+
+}
+
+/* 主体 */
+.main{
+	background-image: url('../img/bg1.jpg');
+	background-repeat: no-repeat;
+	height: 562px;
+	width: 1024px;
+}
+/* 主体框 */
+.regDiv{
+	height: 281px;
+	width: 399px;
+	background-color: rgba(255,255,255,0.80);
+	float: right;
+	margin: 130px 0px 0 0;
+	border-radius: 10px;
+	color: #666666;
+	padding: 10px;
+}
+/* 主体框标题 */
+.regDiv p{
+	color: #00aaff;
+	text-align: center;
+	font-size: 25px;
+	
+}
+
+/* 标签对齐 */
+#form-reg{
+	margin-left: 35px;
+	float: left;
+	text-align: right;
+}
+
+/* 标签字体大小 */
+#form-reg label{
+	font-size: 20px;
+}
+
+/* 输入框大小 */
+#form-reg .label input {
+	margin: 6px;
+	width: 210px;
+	height: 30px;
+	font-size: 20px;
+}
+/* 按钮样式 */
+#form-reg .btn input{
+	height: 40px;
+	width: 100px;
+	color: #ffffff;
+	font-size: 15px;
+	background-color: #00aaff;
+	border-radius: 10px;
+}
