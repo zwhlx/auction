@@ -1,9 +1,7 @@
 package com.fifth.auction.Controller;
 
 import com.fifth.auction.Utils.JSONResult;
-import com.fifth.auction.service.ex.InserException;
-import com.fifth.auction.service.ex.ServiceException;
-import com.fifth.auction.service.ex.UsernameDuplicatedException;
+import com.fifth.auction.service.ex.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.rmi.ServerException;
@@ -21,7 +19,13 @@ public class BaseController {
         JSONResult<Void> result = new JSONResult<>(e);
         if (e instanceof UsernameDuplicatedException){
             result.setState(4000);
-            result.setMessage("用户名被占用");
+            result.setMessage("用户名被占用的异常");
+        } else if (e instanceof UserNotExistException) {
+            result.setState(5001);
+            result.setMessage("用户数据不存在的异常");
+        } else if (e instanceof PasswordIncorrectException) {
+            result.setState(5002);
+            result.setMessage("用户密码不正确的异常");
         } else if (e instanceof InserException){
             result.setState(5000);
             result.setMessage("用户注册过程中产生了未知的异常");

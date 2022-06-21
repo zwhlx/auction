@@ -31,6 +31,18 @@ public class UserServiceTests {
     }
 
 
+    @Test
+    public void login(){
+        try {
+            User user = userService.login("zxc1", "1234");
+            System.out.println(user);
+        } catch (ServiceException e) {
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
 
 }
