@@ -6,7 +6,7 @@ function reg() {
 		data: $("#form-reg").serialize(),
 		dataType: "JSON",
 		success: function (json) {
-			if (json.state==200){
+			if (json.state===200){
 				alert("用户注册成功")
 			}else if(json.state==4000){
 				alert("用户名重复")
