@@ -1,10 +1,10 @@
-package com.fifth.auction.Controller;
+package com.fifth.auction.controller;
 
 import com.fifth.auction.Utils.JSONResult;
 import com.fifth.auction.service.ex.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.rmi.ServerException;
+import javax.servlet.http.HttpSession;
 
 /** 控制层类的基类 */
 public class BaseController {
@@ -29,7 +29,28 @@ public class BaseController {
         } else if (e instanceof InserException){
             result.setState(5000);
             result.setMessage("用户注册过程中产生了未知的异常");
+        } else if (e instanceof UpdateException){
+            result.setState(5003);
+            result.setMessage("更新数据时产生未知的异常");
         }
         return result;
+    }
+
+    /**
+     * 获取当前登录用户的id
+     * @param session session
+     * @return 当前登录用户的UID
+     */
+    protected final Integer getUidFromSession(HttpSession session){
+        return Integer.valueOf(session.getAttribute("uid").toString());
+    }
+
+    /**
+     * 获取当前登录用户的username
+     * @param session session
+     * @return 当前登录用户的username
+     */
+    protected final String getUsernameFromSession(HttpSession session){
+        return session.getAttribute("username").toString();
     }
 }

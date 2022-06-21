@@ -26,13 +26,14 @@ function login() {
 		dataType: "JSON",
 		success: function (json) {
 			if (json.state==200){
-				alert("登录成功")
+				alert("登录成功");
+				location.href= "../index.html";
 			}else if(json.state==5001){
-				alert("用户名不存在")
+				alert("用户名不存在");
 			}else if(json.state==5002){
-				alert("密码错误")
+				alert("密码错误");
 			}else {
-				alert("未知错误")
+				alert("未知错误");
 			}
 		},
 		error: function (xhr) {

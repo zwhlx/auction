@@ -42,6 +42,16 @@ public class UserServiceTests {
         }
     }
 
+    @Test
+    public void UpdatePassword(){
+        try {
+            userService.UpdatePassword(5,"wang5","1234","123");
+        } catch (ServiceException e) {
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 
 

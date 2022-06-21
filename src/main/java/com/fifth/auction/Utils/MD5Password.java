@@ -1,9 +1,11 @@
 package com.fifth.auction.Utils;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.util.DigestUtils;
 
 import java.util.UUID;
 
+@Repository
 public class MD5Password {
     public String Salt() {
         String salt=UUID.randomUUID().toString().toUpperCase();

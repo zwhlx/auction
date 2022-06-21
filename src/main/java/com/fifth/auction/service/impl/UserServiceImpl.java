@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
-    MD5Password md5Password =new MD5Password();
+    @Autowired
+    MD5Password md5Password ;
     //注册业务
     @Override
     public void reg(User user) {
@@ -64,5 +65,22 @@ public class UserServiceImpl implements IUserService {
         user.setUsername(result.getUsername());
 
         return user;
+    }
+
+    @Override
+    public void UpdatePassword(Integer uid, String username, String oldpassword, String newpassword) {
+        User result = userMapper.findByUid(uid);
+        if (result == null ||!result.getUsername().equals(username)){
+            throw  new UserNotExistException("用户不存在");
+        }
+
+
+        String oldMd5Password = md5Password.getMD5password(oldpassword,result.getSalt());
+        if (!oldMd5Password.equals(result.getPassword())){
+            throw new PasswordIncorrectException("密码错误");
+        }
+        String newMd5Password = md5Password.getMD5password(newpassword,result.getSalt());
+
+        userMapper.updatePasswordByUid(uid,newMd5Password);
     }
 }

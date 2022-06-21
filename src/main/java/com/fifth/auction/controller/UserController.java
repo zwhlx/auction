@@ -1,4 +1,4 @@
-package com.fifth.auction.Controller;
+package com.fifth.auction.controller;
 
 import com.fifth.auction.Utils.JSONResult;
 import com.fifth.auction.emtity.User;
@@ -6,6 +6,8 @@ import com.fifth.auction.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("users")
@@ -36,8 +38,20 @@ public class UserController extends BaseController{
 //    }
 
     @RequestMapping("login")
-    public JSONResult<User> login(String username , String password){
+    public JSONResult<User> login(String username , String password, HttpSession session){
         User data = userService.login(username, password);
+
+        session.setAttribute("uid",data.getUid());
+        session.setAttribute("username",data.getUsername());
+
         return new JSONResult<>(OK,data);
+    }
+
+    @RequestMapping("update_password")
+    public JSONResult<Void> UpdatePassword(String oldpassword,String newpassword,HttpSession session){
+        Integer uid = getUidFromSession(session);
+        String username = getUsernameFromSession(session);
+        userService.UpdatePassword(uid,username,oldpassword,newpassword);
+        return new JSONResult<>(OK);
     }
 }

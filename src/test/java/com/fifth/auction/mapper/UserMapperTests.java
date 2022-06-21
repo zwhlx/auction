@@ -29,6 +29,16 @@ public class UserMapperTests {
         User user = userMapper.findByUsername(username);
         System.out.println(user);
     }
+    @Test
+    public void updatePasswordByUid(){
+        String password = "1234";
+        Integer rows = userMapper.updatePasswordByUid(11,password);
+        System.out.println(rows);
+    }
+    @Test
+    public void findByUid(){
+        System.out.println(userMapper.findByUid(11));
+    }
 
 
 }
