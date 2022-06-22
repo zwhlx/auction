@@ -1,6 +1,7 @@
 package com.fifth.auction.controller;
 
 import com.fifth.auction.Utils.JSONResult;
+import com.fifth.auction.emtity.AdminLog;
 import com.fifth.auction.service.ex.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -32,6 +33,12 @@ public class BaseController {
         } else if (e instanceof UpdateException){
             result.setState(5003);
             result.setMessage("更新数据时产生未知的异常");
+        } else if (e instanceof DeleteException){
+            result.setState(4001);
+            result.setMessage("删除用户产生未知的异常");
+        } else if (e instanceof DeleteException) {
+            result.setState(4002);
+            result.setMessage("没有管理员权限");
         }
         return result;
     }
@@ -52,5 +59,9 @@ public class BaseController {
      */
     protected final String getUsernameFromSession(HttpSession session){
         return session.getAttribute("username").toString();
+    }
+
+    protected final AdminLog getAdminLog(){
+        return new AdminLog();
     }
 }

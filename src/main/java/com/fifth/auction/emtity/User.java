@@ -7,23 +7,13 @@ public class User implements Serializable {
     private Integer uid;
     private String username;
     private String password;
-    private String idcard;
-    private String name;
+    private Integer gender;
     private String mobilephone;
     private String address;
     private String email;
-    private Integer qq;
     private Date createtime;
     private Integer admin;
     private String salt;
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
 
     public Integer getUid() {
         return uid;
@@ -49,20 +39,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getIdcard() {
-        return idcard;
+    public Integer getGender() {
+        return gender;
     }
 
-    public void setIdcard(String idcard) {
-        this.idcard = idcard;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public String getMobilephone() {
@@ -89,14 +71,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Integer getQq() {
-        return qq;
-    }
-
-    public void setQq(Integer qq) {
-        this.qq = qq;
-    }
-
     public Date getCreatetime() {
         return createtime;
     }
@@ -113,6 +87,13 @@ public class User implements Serializable {
         this.admin = admin;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     @Override
     public String toString() {
@@ -120,12 +101,10 @@ public class User implements Serializable {
                 "uid=" + uid +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", idcard='" + idcard + '\'' +
-                ", name='" + name + '\'' +
+                ", gender=" + gender +
                 ", mobilephone='" + mobilephone + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", qq=" + qq +
                 ", createtime=" + createtime +
                 ", admin=" + admin +
                 ", salt='" + salt + '\'' +

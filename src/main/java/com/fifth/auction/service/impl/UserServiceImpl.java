@@ -4,10 +4,7 @@ import com.fifth.auction.Utils.MD5Password;
 import com.fifth.auction.emtity.User;
 import com.fifth.auction.mapper.UserMapper;
 import com.fifth.auction.service.IUserService;
-import com.fifth.auction.service.ex.InserException;
-import com.fifth.auction.service.ex.PasswordIncorrectException;
-import com.fifth.auction.service.ex.UserNotExistException;
-import com.fifth.auction.service.ex.UsernameDuplicatedException;
+import com.fifth.auction.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +78,34 @@ public class UserServiceImpl implements IUserService {
         }
         String newMd5Password = md5Password.getMD5password(newpassword,result.getSalt());
 
-        userMapper.updatePasswordByUid(uid,newMd5Password);
+        Integer rows = userMapper.updatePasswordByUid(uid, newMd5Password);
+        if (rows != 1) {
+            throw new UpdateException("更新失败,产生了未知异常");
+        }
+    }
+
+    @Override
+    public void UpdataInfo(Integer uid, User user) {
+        User result = userMapper.findByUid(uid);
+        if (result == null)  {
+            throw new UserNotExistException("用户不存在");
+        }
+        user.setUid(uid);
+        Integer rows = userMapper.updateIntoByUid(user);
+        if (rows!=1){
+            throw new UpdateException("更新失败,产生了未知异常");
+        }
+    }
+
+    @Override
+    public void DeleteUser(Integer uid) {
+        User result = userMapper.findByUid(uid);
+        if (result == null)  {
+            throw new UserNotExistException("用户不存在");
+        }
+        Integer rows = userMapper.delete(uid);
+        if (rows!=1){
+            throw new UpdateException("更新失败,产生了未知异常");
+        }
     }
 }

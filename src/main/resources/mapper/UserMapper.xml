@@ -6,14 +6,43 @@
 
 <!--    增-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="uid">
-        INSERT INTO t_user(username, password, idcard, name, mobilephone, address, email, qq, salt)
-        values (#{username}, #{password}, #{idcard}, #{name}, #{mobilephone},
-                #{address}, #{email}, #{qq},#{salt})
+        INSERT INTO t_user(username, password, gender, mobilephone, address, email,  salt)
+        values (#{username}, #{password}, #{gender}, #{mobilephone},
+                #{address}, #{email},#{salt})
     </insert>
 <!--    删-->
+    <delete id="delete">
+        DELETE FROM t_user WHERE uid=#{uid}
+    </delete>
+
 <!--    改-->
     <update id="updatePasswordByUid">
         UPDATE t_user SET password = #{password} WHERE uid = #{uid}
+    </update>
+
+    <update id="updateIntoByUid">
+        UPDATE t_user SET
+<!--                            <if test="gender!=null">gender = #{gender}</if>-->
+<!--                            <if test="gender!=null and mobilephone!=null">,</if>-->
+<!--                            <if test="gender!=null and mobilephone==null and address!=null">,</if>-->
+<!--                            <if test="gender!=null and mobilephone==null and address==null and email!=null">,</if>-->
+<!--                            <if test="mobilephone!=null">mobilephone = #{mobilephone}</if>-->
+<!--                            <if test="mobilephone!=null and address!=null">,</if>-->
+<!--                            <if test="mobilephone!=null and address==null and email!=null">,</if>-->
+<!--                            <if test="address!=null">address = #{address}</if>-->
+<!--                            <if test="address!=null and email!=null">,</if>-->
+<!--                            <if test="email!=null">email = #{email}</if>-->
+
+        <if test="gender!=null">gender = #{gender}</if>
+        <if test="gender!=null "><if test=" mobilephone!=null or address!=null or email!=null">,</if></if>
+        <if test="mobilephone!=null">mobilephone = #{mobilephone}</if>
+        <if test="mobilephone!=null"><if test="address!=null or email!=null">,</if></if>
+        <if test="address!=null">address = #{address}</if>
+        <if test="address!=null and email!=null">,</if>
+        <if test="email!=null">email = #{email}</if>
+
+
+                      WHERE uid = #{uid}
     </update>
 
 <!--    查-->

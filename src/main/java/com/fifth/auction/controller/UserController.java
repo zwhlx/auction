@@ -54,4 +54,12 @@ public class UserController extends BaseController{
         userService.UpdatePassword(uid,username,oldpassword,newpassword);
         return new JSONResult<>(OK);
     }
+
+    @RequestMapping("update_info")
+    public JSONResult<Void> UpdateInfo(User user , HttpSession session){
+        Integer uid = getUidFromSession(session);
+        userService.UpdataInfo(uid,user);
+        return new JSONResult<>(OK);
+    }
+
 }

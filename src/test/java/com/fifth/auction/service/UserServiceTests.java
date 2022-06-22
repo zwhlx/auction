@@ -52,7 +52,29 @@ public class UserServiceTests {
         }
     }
 
+    @Test
+    public void UpdataInfo(){
+        try {
+            User user = new User();
+            user.setGender(1);
+            user.setEmail("test01@mail.com");
+            user.setAddress("广东省");
+            user.setMobilephone("13655555555");
+            userService.UpdataInfo(11,user);
+        } catch (ServiceException e) {
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+        }
+    }
 
-
+    @Test
+    public void DeleteUser(){
+        try {
+            userService.DeleteUser(13);
+        } catch (ServiceException e) {
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

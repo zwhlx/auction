@@ -17,7 +17,7 @@ public class UserMapperTests {
     @Test
     public void insert(){
         User user = new User();
-        user.setUsername("zhangsan");
+        user.setUsername("zhangsan111");
         user.setPassword("123");
         Integer rows= userMapper.insert(user);
         System.out.println(rows);
@@ -39,6 +39,22 @@ public class UserMapperTests {
     public void findByUid(){
         System.out.println(userMapper.findByUid(11));
     }
+    @Test
+    public void updateIntoByUid(){
+        User user = new User();
+        user.setUid(11);
+        user.setGender(1);
+//        user.setMobilephone("13333333333");
+//        user.setAddress("广西省");
+//        user.setEmail("test@mail.com");
+        Integer rows = userMapper.updateIntoByUid(user);
+        System.out.println(rows);
+    }
 
+    @Test
+    public void delete(){
+        Integer rows = userMapper.delete(14);
+        System.out.println(rows);
+    }
 
 }

@@ -11,9 +11,12 @@ public interface UserMapper {
 
     //删-----------
 
+    Integer delete(Integer uid);
 
     //改------------
     Integer updatePasswordByUid(Integer uid,String password);
+
+    Integer updateIntoByUid(User user);
 
     //查------------
     User findByUsername(String username);
