@@ -3,6 +3,7 @@ package com.fifth.auction.controller;
 import com.fifth.auction.Utils.JSONResult;
 import com.fifth.auction.emtity.AdminLog;
 import com.fifth.auction.service.ex.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpSession;
@@ -20,25 +21,28 @@ public class BaseController {
         JSONResult<Void> result = new JSONResult<>(e);
         if (e instanceof UsernameDuplicatedException){
             result.setState(4000);
-            result.setMessage("用户名被占用的异常");
+            result.setMessage(e.getMessage());//"用户名被占用的异常"
         } else if (e instanceof UserNotExistException) {
             result.setState(5001);
-            result.setMessage("用户数据不存在的异常");
+            result.setMessage(e.getMessage());//"用户数据不存在的异常"
         } else if (e instanceof PasswordIncorrectException) {
             result.setState(5002);
-            result.setMessage("用户密码不正确的异常");
+            result.setMessage(e.getMessage());//"用户密码不正确的异常"
         } else if (e instanceof InserException){
             result.setState(5000);
-            result.setMessage("用户注册过程中产生了未知的异常");
+            result.setMessage(e.getMessage());//"插入数据过程中产生了未知的异常"
         } else if (e instanceof UpdateException){
             result.setState(5003);
-            result.setMessage("更新数据时产生未知的异常");
+            result.setMessage(e.getMessage());//"更新数据时产生未知的异常"
         } else if (e instanceof DeleteException){
             result.setState(4001);
-            result.setMessage("删除用户产生未知的异常");
-        } else if (e instanceof DeleteException) {
+            result.setMessage(e.getMessage());//"删除数据时产生未知的异常"
+        } else if (e instanceof NoAdminPermissionException) {
             result.setState(4002);
-            result.setMessage("没有管理员权限");
+            result.setMessage(e.getMessage());//"没有管理员权限"
+        } else if(e instanceof AuctionNotExistException){
+            result.setState(6000);
+            result.setMessage(e.getMessage());//拍卖信息不存在
         }
         return result;
     }

@@ -1,7 +1,6 @@
 package com.fifth.auction.mapper;
 
 import com.fifth.auction.emtity.AdminLog;
-import com.fifth.auction.emtity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import java.util.Date;
 @RunWith(SpringRunner.class)
 public class AdminLogMapperTests {
 
-    @Autowired
-    private UserMapper userMapper;
     @Autowired
     private AdminLogMapper adminLogMapper;
 

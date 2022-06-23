@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fifth.auction.mapper.AuctionMapper">
+<!--    增-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="aid">
+        INSERT INTO t_auctions (category,ownerid,ownername,auctionname,auctiondetail,
+                                img,endtime,startprice )
+        values ( #{category}, #{ownerid}, #{ownername},#{auctionname}, #{auctiondetail},
+                #{img}, #{endtime}, #{startprice})
+    </insert>
+<!--    删-->
+<!--    改-->
+<!--    查-->
+    <select id="findByAid" resultType="com.fifth.auction.emtity.Auction">
+        SELECT * FROM t_auctions WHERE aid = #{aid}
+    </select>
+</mapper>

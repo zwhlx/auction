@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminLogService implements IAdminLogService {
+public class AdminLogServiceImpl implements IAdminLogService {
     @Autowired
     private AdminLogMapper adminLogMapper;
     @Autowired

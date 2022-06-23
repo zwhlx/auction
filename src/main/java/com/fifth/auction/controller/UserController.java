@@ -21,6 +21,7 @@ public class UserController extends BaseController{
             userService.reg(user);
             return new JSONResult<>(OK);
     }
+
 //    @RequestMapping("reg")
 //    public JSONResult<Void> reg(User user) {
 //        JSONResult<Void> result = new JSONResult<>();
