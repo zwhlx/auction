@@ -33,4 +33,9 @@ public class AuctionServiceTests {
     public void getAuctionFormAid(){
         System.out.println(auctionService.getAuctionFormAid(1));
     }
+
+    @Test
+    public void getAllAuction(){
+        System.out.println(auctionService.getAllAuction());
+    }
 }

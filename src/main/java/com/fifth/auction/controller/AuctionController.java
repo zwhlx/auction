@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("auctions")
@@ -28,6 +29,12 @@ public class AuctionController extends BaseController{
     @RequestMapping("get_auction")
     public JSONResult<Auction> getAuction(Integer aid){
         Auction data=auctionService.getAuctionFormAid(aid);
+        return new JSONResult<>(OK,data);
+    }
+
+    @RequestMapping("get_all_auctions")
+    public JSONResult<ArrayList<Auction>> getAllAuction(){
+        ArrayList<Auction> data = auctionService.getAllAuction();
         return new JSONResult<>(OK,data);
     }
 

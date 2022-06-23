@@ -16,4 +16,8 @@
     <select id="findByAid" resultType="com.fifth.auction.emtity.Auction">
         SELECT * FROM t_auctions WHERE aid = #{aid}
     </select>
+
+    <select id="getAll" resultType="com.fifth.auction.emtity.Auction">
+        SELECT * FROM t_auctions
+    </select>
 </mapper>

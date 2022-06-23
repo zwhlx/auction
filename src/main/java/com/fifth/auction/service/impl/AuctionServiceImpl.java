@@ -9,6 +9,7 @@ import com.fifth.auction.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -51,5 +52,11 @@ public class AuctionServiceImpl implements IAuctionService {
             throw new AuctionNotExistException("拍卖品不存在");
         }
         return auction;
+    }
+
+    @Override
+    public ArrayList<Auction> getAllAuction() {
+        ArrayList<Auction> data= auctionMapper.getAll();
+        return data;
     }
 }

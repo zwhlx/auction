@@ -30,8 +30,12 @@ public class AuctionMapperTests {
     }
 
     @Test
-    public  void findByAid(){
+    public void findByAid(){
         System.out.println(auctionMapper.findByAid(1));
+    }
+    @Test
+    public void getAll(){
+        System.out.println(auctionMapper.getAll());
     }
 
 
