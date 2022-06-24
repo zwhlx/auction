@@ -15,6 +15,16 @@ public class UserController extends BaseController{
     @Autowired
     private IUserService userService;
 
+    @RequestMapping("islogin")
+    public JSONResult<User> islogin(HttpSession session) {
+        User user = new User();
+        Object uid = session.getAttribute("uid");
+        if (uid==null) return new JSONResult<>(OK,user);
+        user.setUsername(getUsernameFromSession(session));
+        user.setUid(getUidFromSession(session));
+        return new JSONResult<>(OK,user);
+    }
+
     @RequestMapping("reg")
     public JSONResult<Void> reg(User user) {
 
@@ -46,6 +56,11 @@ public class UserController extends BaseController{
         session.setAttribute("username",data.getUsername());
 
         return new JSONResult<>(OK,data);
+    }
+    @RequestMapping("logout")
+    public JSONResult<User> logout(HttpSession session){
+        session.invalidate();
+        return new JSONResult<>(OK);
     }
 
     @RequestMapping("update_password")

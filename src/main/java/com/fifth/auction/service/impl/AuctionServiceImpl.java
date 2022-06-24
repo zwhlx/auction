@@ -56,7 +56,22 @@ public class AuctionServiceImpl implements IAuctionService {
 
     @Override
     public ArrayList<Auction> getAllAuction() {
-        ArrayList<Auction> data= auctionMapper.getAll();
-        return data;
+        return auctionMapper.getAll();
+    }
+
+    @Override
+    public ArrayList<Auction> findByCategory(Integer category) {
+        return auctionMapper.findByCategory(category);
+
+    }
+
+    @Override
+    public ArrayList<Auction> findByisend(Integer isend) {
+        return auctionMapper.findByisend(isend);
+    }
+
+    @Override
+    public ArrayList<Auction> findByownerid(Integer ownerid) {
+        return auctionMapper.findByOwnerid(ownerid);
     }
 }

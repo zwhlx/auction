@@ -11,7 +11,7 @@ public interface AuctionMapper {
     Integer insert(Auction auction);
 
     //-------  删  --
-
+    Integer delete(Integer aid);
 
 
     //-------  改  --
@@ -22,5 +22,11 @@ public interface AuctionMapper {
     Auction findByAid(Integer aid);
 
     ArrayList<Auction> getAll();
+
+    ArrayList<Auction> findByCategory(Integer category);
+
+    ArrayList<Auction> findByisend(Integer category);
+
+    ArrayList<Auction> findByOwnerid(Integer ownerid);
 
 }

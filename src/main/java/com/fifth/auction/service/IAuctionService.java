@@ -13,4 +13,12 @@ public interface IAuctionService {
 
     ArrayList<Auction> getAllAuction();
 
+    ArrayList<Auction> findByCategory(Integer category);
+
+    ArrayList<Auction> findByisend(Integer issend);
+
+    ArrayList<Auction> findByownerid(Integer ownerid);
+
+
+
 }

@@ -19,8 +19,6 @@
     	<ul class="pull-right">
     		<li><a href="orders.html">&nbsp;订单</a></li>
     		<li class="li-split">|</li>
-    		<li><a href="cart.html">&nbsp;购物车</a></li>
-    		<li class="li-split">|</li>
     		<li>
     			<!--下列列表按钮 ：管理-->
     			<div class="li-group">
@@ -31,12 +29,12 @@
     				<ul class="dropdown-menu" role="menu">
     					<li><a href="password.html">修改密码</a></li>
     					<li><a href="userdata.html">个人资料</a></li>
-    					<li><a href="address.html">收货管理	</a></li>
+    					<li><a href="address.html">发布拍卖</a></li>
     				</ul>
     			</div>
     		</li>
     		<li class="li-split">|</li>
-    		<li><a href="login.html"><span class="fa fa-user"></span>&nbsp;注销</a></li>
+    		<li><a href="#" onclick="logout()"><span class="logout"></span>&nbsp;注销</a></li>
     	</ul>
     </div>
 </header>
@@ -63,6 +61,15 @@
         Copyright © 2022  <b style="color: #0000ff;">20移动2班第五小组</b> 版权所有
     </div>
 </footer>
+<script type="text/javascript">
+	function logout() {
+		$.get("../users/logout",function () {
+			location.href="../login.html";
+
+		});
+
+	}
+</script>
 <!--页脚结束-->
 </body>
 </html>

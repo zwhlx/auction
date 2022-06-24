@@ -27,59 +27,22 @@
 			<a class="active" href="qiche.html">汽车</a>
 			<a class="user" href="login.html" style="float: right;">登录</a>
 		</div>
-		<!--主体-->	
+
+		<!--主体-->
 		<div class="main">
-			<!--主体-->
-			<div class="main">
-				<div class="label"><h3>正在拍卖<a href="#" style="float: right;">更多</a></h3></div>
-					<div class="rows">
-						<div class="responsive">
-						<div class="img">
-							<a target="_blank" href="http://static.runoob.com/images/demo/demo1.jpg">
-							<img src="http://static.runoob.com/images/demo/demo1.jpg" alt="图片文本描述" width="300" height="200">
-							</a>
-							<div class="desc">这里添加图片文本描述</div>
-						</div>
-						</div>
-						
-						<div class="responsive">
-						<div class="img">
-							<a target="_blank" href="http://static.runoob.com/images/demo/demo2.jpg">
-							<img src="http://static.runoob.com/images/demo/demo2.jpg" alt="图片文本描述" width="300" height="200">
-							</a>
-							<div class="desc">这里添加图片文本描述</div>
-						</div>
-						</div>
-						
-						<div class="responsive">
-						<div class="img">
-							<a target="_blank" href="http://static.runoob.com/images/demo/demo3.jpg">
-							<img src="http://static.runoob.com/images/demo/demo3.jpg" alt="图片文本描述" width="300" height="200">
-							</a>
-							<div class="desc">这里添加图片文本描述</div>
-						</div>
-						</div>
-						
-						<div class="responsive">
-						<div class="img">
-							<a target="_blank" href="http://static.runoob.com/images/demo/demo4.jpg">
-							<img src="http://static.runoob.com/images/demo/demo4.jpg" alt="图片文本描述" width="300" height="200">
-							</a>
-							<div class="desc">这里添加图片文本描述</div>
-						</div>
-						</div>
-						
-					</div>
-					
-				<div class="clearfix"></div>
-				<div class="label"><h3>即将开拍<a href="#" style="float: right;">更多</a></h3></div>
-				
-				<div class="clearfix"></div>
-				<div class="label"><h3>拍卖结果<a href="#" style="float: right;">更多</a></h3></div>
-				
-				<div class="clearfix"></div>
-				
+			<div class="label"><h3>正在拍卖<a href="#" style="float: right;">更多</a></h3></div>
+
+			<div class="rows_0">
 			</div>
+
+			<div class="clearfix"></div>
+			<div class="label"><h3>已结束<a href="#" style="float: right;">更多</a></h3></div>
+
+			<div class="rows_1">
+			</div>
+
+			<div class="clearfix"></div>
+
 		</div>
 		
 		
@@ -95,5 +58,66 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$.ajax({
+					url: "users/islogin",
+					type: "get",
+					dataType: "JSON",
+					success: function (json) {
+						if (json.data.username!=null){
+							$(".user").text(json.data.username);
+							$(".user").attr("href","/user/user.html");
+
+						}
+					},
+					error: function (xhr) {
+
+					}
+				});
+				// 正在拍卖
+				$.ajax({
+					url: "auctions/get_auctions_by_category",
+					type: "get",
+					data: {"category": "3"},
+					dataType: "JSON",
+					success: function (json) {
+						if (json.state == 200) {
+							array = json.data;
+							for (var auctions of array) {
+								div = "<div class=\"responsive\">" +
+										"<div class=\"img\">" +
+										"<a target=\"_blank\" href=\"#{url}\">" +
+										"<div class='img_div'><img src=\"#{img_url}\"  width=\"300\" height=\"200\" alt=\"img\"></div>" +
+										"<div class=\"desc\">#{detail}</div>" +
+										"<div class=\"time\">开始时间#{stime}</div>" +
+										"<div class=\"time\">结束时间#{etime}</div>" +
+										"</a>" +
+										"</div>" +
+										"</div>";
+								div = div.replace("#{url}", "url");
+								div = div.replace("#{img_url}", auctions.img);
+								div = div.replace("#{detail}", auctions.auctionname);
+								div = div.replace("#{stime}", auctions.starttime);
+								div = div.replace("#{etime}", auctions.endtime);
+								if (auctions.isend == 1) {
+									$(".rows_1").append(div)
+								} else {
+
+									$(".rows_0").append(div)
+								}
+							}
+						} else {
+							alert("未知错误");
+						}
+					},
+					error: function (xhr) {
+						alert("未知异常！" + xhr.status)
+					}
+				});
+
+			});
+
+		</script>
 	</body>
 </html>

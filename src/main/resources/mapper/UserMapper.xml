@@ -21,27 +21,13 @@
     </update>
 
     <update id="updateIntoByUid">
-        UPDATE t_user SET
-<!--                            <if test="gender!=null">gender = #{gender}</if>-->
-<!--                            <if test="gender!=null and mobilephone!=null">,</if>-->
-<!--                            <if test="gender!=null and mobilephone==null and address!=null">,</if>-->
-<!--                            <if test="gender!=null and mobilephone==null and address==null and email!=null">,</if>-->
-<!--                            <if test="mobilephone!=null">mobilephone = #{mobilephone}</if>-->
-<!--                            <if test="mobilephone!=null and address!=null">,</if>-->
-<!--                            <if test="mobilephone!=null and address==null and email!=null">,</if>-->
-<!--                            <if test="address!=null">address = #{address}</if>-->
-<!--                            <if test="address!=null and email!=null">,</if>-->
-<!--                            <if test="email!=null">email = #{email}</if>-->
-
-        <if test="gender!=null">gender = #{gender}</if>
-        <if test="gender!=null "><if test=" mobilephone!=null or address!=null or email!=null">,</if></if>
-        <if test="mobilephone!=null">mobilephone = #{mobilephone}</if>
-        <if test="mobilephone!=null"><if test="address!=null or email!=null">,</if></if>
-        <if test="address!=null">address = #{address}</if>
-        <if test="address!=null and email!=null">,</if>
-        <if test="email!=null">email = #{email}</if>
-
-
+        UPDATE t_user
+                          <set>
+                              <if test="gender!=null">gender = #{gender}</if>
+                              <if test="mobilephone!=null">mobilephone = #{mobilephone}</if>
+                              <if test="address!=null">address = #{address}</if>
+                              <if test="email!=null">email = #{email}</if>
+                      </set>
                       WHERE uid = #{uid}
     </update>
 

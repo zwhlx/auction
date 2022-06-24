@@ -11,6 +11,9 @@
                 #{img}, #{endtime}, #{startprice})
     </insert>
 <!--    删-->
+    <delete id="delete">
+        DELETE FROM t_auctions WHERE aid=#{aid}
+    </delete>
 <!--    改-->
 <!--    查-->
     <select id="findByAid" resultType="com.fifth.auction.emtity.Auction">
@@ -20,4 +23,19 @@
     <select id="getAll" resultType="com.fifth.auction.emtity.Auction">
         SELECT * FROM t_auctions
     </select>
+
+    <select id="findByCategory" resultType="com.fifth.auction.emtity.Auction">
+        SELECT * FROM t_auctions WHERE category=#{category}
+    </select>
+
+    <select id="findByisend" resultType="com.fifth.auction.emtity.Auction">
+        SELECT * FROM t_auctions WHERE isend=#{isend}
+    </select>
+
+    <select id="findByOwnerid" resultType="com.fifth.auction.emtity.Auction">
+        SELECT * FROM t_auctions WHERE ownerid=#{ownerid}
+    </select>
+
+
+
 </mapper>

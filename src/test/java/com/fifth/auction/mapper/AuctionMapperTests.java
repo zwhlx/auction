@@ -37,6 +37,25 @@ public class AuctionMapperTests {
     public void getAll(){
         System.out.println(auctionMapper.getAll());
     }
+    @Test
+    public void findByCategory(){
+        System.out.println(auctionMapper.findByCategory(1));
+    }
+
+    @Test
+    public void delete(){
+        System.out.println(auctionMapper.delete(2));
+    }
+
+    @Test
+    public void findByisend(){
+        System.out.println(auctionMapper.findByisend(0));
+    }
+
+    @Test
+    public void findByOwnerid(){
+        System.out.println(auctionMapper.findByOwnerid(11));
+    }
 
 
 

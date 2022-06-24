@@ -38,4 +38,12 @@ public class AuctionServiceTests {
     public void getAllAuction(){
         System.out.println(auctionService.getAllAuction());
     }
+    @Test
+    public void findByCategory(){
+        System.out.println(auctionService.findByCategory(1));
+    }
+    @Test
+    public void findByissend(){
+        System.out.println(auctionService.findByisend(0));
+    }
 }

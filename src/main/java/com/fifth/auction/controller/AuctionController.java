@@ -38,4 +38,16 @@ public class AuctionController extends BaseController{
         return new JSONResult<>(OK,data);
     }
 
+    @RequestMapping("get_auctions_by_category")
+    public JSONResult<ArrayList<Auction>> getAuctionsByIsend(Integer category){
+        ArrayList<Auction> data = auctionService.findByCategory(category);
+        return new JSONResult<>(OK,data);
+    }
+
+    @RequestMapping("get_auctions_by_isend")
+    public JSONResult<ArrayList<Auction>> getIsendByAuctions(Integer isend){
+        ArrayList<Auction> data = auctionService.findByisend(isend);
+        return new JSONResult<>(OK,data);
+    }
+
 }
