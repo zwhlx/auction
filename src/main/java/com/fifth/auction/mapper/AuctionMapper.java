@@ -18,6 +18,8 @@ public interface AuctionMapper {
 
     Integer updateIsend(Auction auction);
 
+    Integer updateHighestBidder(Auction auction);
+
 
 
     //-------  查  --

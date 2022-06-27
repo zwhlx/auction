@@ -43,6 +43,12 @@ public class BaseController {
         } else if(e instanceof AuctionNotExistException){
             result.setState(6000);
             result.setMessage(e.getMessage());//拍卖信息不存在
+        }else if(e instanceof AuctionPriceException){
+            result.setState(6001);
+            result.setMessage(e.getMessage());//拍卖价格的问题
+        }else if(e instanceof AuctionTimeException){
+            result.setState(6001);
+            result.setMessage(e.getMessage());//拍卖时间的问题
         }
         return result;
     }

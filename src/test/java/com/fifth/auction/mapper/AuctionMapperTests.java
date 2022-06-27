@@ -65,6 +65,17 @@ public class AuctionMapperTests {
         System.out.println(auctionMapper.updateIsend(a));
     }
 
+    @Test
+    public void updateHighestBidder(){
+        Auction a=new Auction();
+        a.setAid(1);
+        a.setIsend(0);
+        a.setCurrentprice(1.36);
+        a.setCurrentserid(11);
+        a.setCurrentuser("admin");
+        System.out.println(auctionMapper.updateHighestBidder(a));
+    }
+
 
 
 }

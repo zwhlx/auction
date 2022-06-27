@@ -24,7 +24,7 @@
 			    <a href="../guwan.html">古玩</a>
 			    <a href="../fangchan.html">房产</a>
 			    <a href="../qiche.html" >汽车</a>
-			    <a class="../user" href="login.html" style="float: right;">登录</a>
+			    <a class="user" href="../login.html" style="float: right;">登录</a>
 			</div>
 		
 		<!--主体-->
@@ -32,7 +32,7 @@
 				<div>
 					<div class="auc-img">
 						<div data="1" class="img-big big-show">
-							<img id="auction-image" src="img/bg2.jpg" class="responsive" />
+							<img id="auction-image" src="" class="responsive" />
 						</div>
 						
 					</div>
@@ -47,7 +47,8 @@
 								<small>当前最高出价者：</small> <span id="current-user-name"> </span><br/><br/>
 							</div>
 							<form class="auction-form">
-								<input name="price" type="text" placeholder="请输入价格">
+								<input id="price" name="price" type="number" placeholder="请输入价格">
+								<input type="number" style="display: none">
 								<input class="btn" type="button" value="竞价">
 							</form>
 							<div class="stop-time">
@@ -72,6 +73,24 @@
 		<!--页脚结束-->
 	<script type="text/javascript">
 		$(document).ready(function (){
+
+			$.ajax({
+				url: "users/islogin",
+				type: "get",
+				dataType: "JSON",
+				success: function (json) {
+					if (json.data.username!=null){
+						$(".user").text(json.data.username);
+						$(".user").attr("href","/user/user.html");
+
+					}
+				},
+				error: function (xhr) {
+
+				}
+			});
+
+
 			$.ajax({
 				url:"auctions/get_auction",
 				type:"get",
@@ -79,43 +98,52 @@
 				dataType:"JSON",
 				success(json){
 					data=json.data;
-					// $("#auction-image").setAttribute("scr","img/bg.jpg");
+					$("#auction-image").attr("src",data.img);
 					$("#auction-start-time").text(new Date(data.starttime).toLocaleString());
 					$("#auction-stop-time").text(new Date(data.endtime).toLocaleString());
 					$("#auction-start-price").text(data.startprice);
 					$("#auction-current-price").text(data.currentprice);
-					$("#current-user-name").text(data.currentserid);
+					$("#current-user-name").text(data.currentuser);
 					if (data.isend==0&&fix(data.endtime==null)){
 						updateUrl(data.aid);
 					}
 					$("#auction-time").text(fix(data.endtime));
-					setInterval(function(){
-						if (data.isend==0&&fix(data.endtime==null)){
-							updateUrl(data.aid);
-						}
-						$("#auction-time").text(fix(data.endtime));
-					},1000);
+					if (data.isend==1){
+						$("#auction-time").text("已结束拍卖");
+						$(".btn").attr("disabled","true");
+					}else{
+						setInterval(function(){
+							if (data.isend==0&&fix(data.endtime)==null){
+								updateUrl(data.aid);
+							}
+							$("#auction-time").text(fix(data.endtime));
+						},1000);
+					}
+					// console.log(fix(data.endtime));
+
+
 				},error(json){}
 			});
 		});
 
 		function updateUrl(aid){
 			$.post("auctions/isend",{aid:aid},function (json) {
-				if (json.state=200){
+				if (json.state==200){
 					location.reload();
 				}
 			});
 		}
 
-		function fix(etime){
+		function fix(endtime){
 			stime = new Date();
-			if(stime - etime>0){
-				time=stime-etime;
-				H=Math.floor(time1/1000/60/60);
+			etime = new Date(endtime);
+			if(stime - etime<0){
+				time=etime-stime;
+				H=Math.floor(time/1000/60/60);
 				if (H<10){H="0"+H;}
-				m=Math.floor(time1/1000/60%60);
+				m=Math.floor(time/1000/60%60);
 				if (m<10){m="0"+m;}
-				s=Math.floor(time1/1000%60);
+				s=Math.floor(time/1000%60);
 				if (s<10){s="0"+s;}
 				// console.log(H+":"+m+":"+s);
 				return H+":"+m+":"+s;
@@ -125,8 +153,8 @@
 		}
 
 
-		function getUrlParam(id) {
-			var regExp = new RegExp('([?]|&)' + id+ '=([^&]*)(&|$)');
+		function getUrlParam(name) {
+			var regExp = new RegExp('([?]|&)' + name+ '=([^&]*)(&|$)');
 			var result = window.location.href.match(regExp);
 			if (result) {
 				return decodeURIComponent(result[2]);
@@ -134,6 +162,33 @@
 				return null;
 			}
 		};
+
+
+		$(".btn").click(function () {
+			$("#price").val(Math.floor($("#price").val() * 100) / 100);
+			price = $("#price").val();
+			// console.log(Number($("#auction-current-price").val()));
+			// console.log(price);
+			c_price=$("#auction-current-price").text();
+			// console.log(c_price);
+			s_price=$("#auction-start-price").text();
+			// console.log(s_price);
+			if (price<=Number(c_price)||price<=Number(s_price)){
+				alert("出价小于当前价");
+			}else{
+				// console.log(str);
+				$.post("auctions/auction",
+						{
+							aid:getUrlParam("id"),
+							currentprice:price
+						},
+						function () {
+					alert("提交成功");
+					location.reload();
+				});
+			}
+		});
+
 	</script>
 		
 	</body>

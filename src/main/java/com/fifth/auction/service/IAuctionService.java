@@ -21,6 +21,8 @@ public interface IAuctionService {
 
     void Isend(Auction auction);
 
+    void updateHighestBidder(Auction auction);
+
 
 
 }

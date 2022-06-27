@@ -57,4 +57,13 @@ public class AuctionController extends BaseController{
         return new JSONResult<>(OK);
     }
 
+    @RequestMapping("auction")
+    public JSONResult<Void> updateHighestBidder(Auction auction,HttpSession session){
+        auction.setCurrentuser(getUsernameFromSession(session));
+        auction.setCurrentserid(getUidFromSession(session));
+//        System.out.println(auction);
+        auctionService.updateHighestBidder(auction);
+        return new JSONResult<>(OK);
+    }
+
 }

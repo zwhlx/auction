@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>第五小组拍卖系统|个人中心</title>
+    <!--导入核心文件-->
+    <script src="../js/jquery-3.6.0.js"></script>
+    <link href="../css/body.css" rel="stylesheet" type="text/css"/>
+
+    <link href="../css/index.css" rel="stylesheet" type="text/css"/>
+	<link href="../css/user/user.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<!--头部-->
+<header class="header">
+	<a class="index" href="../index.html">首页</a>
+    <div class="top-item">
+    	<ul class="pull-right">
+    		<li><a href="orders.html">&nbsp;订单</a></li>
+    		<li class="li-split">|</li>
+    		<li>
+    			<!--下列列表按钮 ：管理-->
+    			<div class="li-group">
+					<span><a href="#">&nbsp;管理</a></span>
+    				<ul class="dropdown-menu" role="menu">
+    					<li><a href="user.html">个人资料</a></li>
+    					<li><a href="password.html">修改密码</a></li>
+    					<li><a href="addauction.html">发布拍卖</a></li>
+    				</ul>
+    			</div>
+    		</li>
+    		<li class="li-split">|</li>
+    		<li><a href="#" onclick="logout()"><span class="logout"></span>&nbsp;注销</a></li>
+    	</ul>
+    </div>
+</header>
+<!--头部结束-->
+
+
+<!-- 导航栏-->
+<div class="topnav">
+    
+</div>
+
+<!--主体-->
+	<div class="main">
+	
+		<div class="panel">
+			<div class="box">
+				<ul class="tabs">
+					<li><a href="user.html">个人资料</a></li>
+					<li><a href="password.html">修改密码</a></li>
+					<li class="active"><a href="#">发布拍卖</a></li>
+				</ul>
+			</div>
+			<div class="panel-body">
+				<!--修改资料表单开始-->
+				<form id="form-change-info">
+					<div class="form-group">
+						<label class="label">拍卖品名称：</label>
+						<input id="auctionname" type="text" placeholder="请输入拍卖品名称">
+					</div>
+					<div class="form-group">
+						<label class="label">起拍价：</label>
+						<input id="startprice" name="startprice" type="number" placeholder="请输入起拍价">
+					</div>
+
+					<div class="form-group">
+						<label class="label">结束时间：</label>
+						<input id="endtime" name="endtime" type="datetime-local" >
+					</div>
+					
+					<div class="form-group">
+						<label class="label">种类：</label>
+						<label class="radio-inline">
+							<input id="category-guwan" type="radio" name="category" value="1" >古玩
+						</label>
+						<label class="radio-inline">
+							<input id="category-fangchan" type="radio" name="category" value="2">房产
+						</label>
+						<label class="radio-inline">
+							<input id="category-qiche" type="radio" name="category" value="3">汽车
+						</label>
+					</div>
+					<div class="form-group2">
+						<input id="btn-release-info" type="button" class="btn" value="发布" />
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+
+<!--页脚开始-->
+<footer class="footer">
+    <!-- 页面底部-备案号 #footer -->
+    <div>
+        Copyright © 2022  <b style="color: #0000ff;">20移动2班第五小组</b> 版权所有
+    </div>
+</footer>
+<script type="text/javascript">
+	function logout() {
+		$.get("../users/logout",function () {
+			location.href="../login.html";
+
+		});
+
+	}
+</script>
+<!--页脚结束-->
+</body>
+</html>

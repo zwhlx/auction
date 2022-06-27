@@ -20,6 +20,10 @@ public class AuctionServiceImpl implements IAuctionService {
     @Autowired
     private AuctionMapper auctionMapper;
 
+    /**
+     * 添加拍卖
+     * @param auction 拍卖品信息
+     */
     @Override
     public void addAuction(Auction auction) {
         Date date = auction.getEndtime();
@@ -45,6 +49,11 @@ public class AuctionServiceImpl implements IAuctionService {
         }
     }
 
+    /**
+     * 根据拍卖品id查询拍卖品
+     * @param aid 拍卖品id
+     * @return 拍卖品信息
+     */
     @Override
     public Auction getAuctionFormAid(Integer aid) {
         Auction auction = auctionMapper.findByAid(aid);
@@ -54,27 +63,50 @@ public class AuctionServiceImpl implements IAuctionService {
         return auction;
     }
 
+    /**
+     * 获取全部拍卖
+     * @return 存有所有拍卖品的ArrayList
+     */
     @Override
     public ArrayList<Auction> getAllAuction() {
         return auctionMapper.getAll();
     }
 
+    /**
+     * 根据拍卖类型进行查找
+     * @param category 拍卖类型
+     * @return  存有 所查询类型的拍卖品的ArrayList
+     */
     @Override
     public ArrayList<Auction> findByCategory(Integer category) {
         return auctionMapper.findByCategory(category);
 
     }
 
+    /**
+     * 根据拍卖是否已完成进行查找
+     * @param isend 1-已完成  2-未完成
+     * @return 存有 所查询的拍卖品的ArrayList
+     */
     @Override
     public ArrayList<Auction> findByisend(Integer isend) {
         return auctionMapper.findByisend(isend);
     }
 
+    /**
+     * 根据用户id查询所属拍卖
+     * @param ownerid 用户id
+     * @return  改用户的所有拍卖品
+     */
     @Override
     public ArrayList<Auction> findByownerid(Integer ownerid) {
         return auctionMapper.findByOwnerid(ownerid);
     }
 
+    /**
+     * 更新拍卖状态
+     * @param auction 拍卖信息
+     */
     @Override
     public void Isend(Auction auction) {
         Integer aid=auction.getAid();
@@ -86,5 +118,31 @@ public class AuctionServiceImpl implements IAuctionService {
             auction.setIsend(0);
         }
         auctionMapper.updateIsend(auction);
+    }
+
+    /**
+     * 更新最高价者
+     * @param auction 拍卖信息
+     */
+    @Override
+    public void updateHighestBidder(Auction auction) {
+        Auction data = auctionMapper.findByAid(auction.getAid());
+        if (data==null){
+            throw new AuctionNotExistException("拍卖不存在");
+        }
+        if (data.getIsend()!=0||new Date().getTime()>=data.getEndtime().getTime()){
+            throw new AuctionTimeException("拍卖已结束");
+        }
+        if (data.getCurrentprice()==null){
+            if (auction.getCurrentprice()<=data.getStartprice()){
+                throw new AuctionPriceException("出价小于当前价");
+            }
+        }else{
+            if (auction.getCurrentprice()<=data.getCurrentprice()){
+                throw new AuctionPriceException("出价小于当前价");
+            }
+        }
+
+        auctionMapper.updateHighestBidder(auction);
     }
 }
