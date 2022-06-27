@@ -16,6 +16,8 @@ public interface AuctionMapper {
 
     //-------  改  --
 
+    Integer updateIsend(Auction auction);
+
 
 
     //-------  查  --

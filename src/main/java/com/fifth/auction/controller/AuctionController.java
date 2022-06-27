@@ -50,4 +50,11 @@ public class AuctionController extends BaseController{
         return new JSONResult<>(OK,data);
     }
 
+
+    @RequestMapping("isend")
+    public JSONResult<Void> setisend(Auction auction){
+        auctionService.Isend(auction);
+        return new JSONResult<>(OK);
+    }
+
 }

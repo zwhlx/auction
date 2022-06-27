@@ -1,9 +1,11 @@
 body{
 	max-width: 1000px;
+	min-width: 1000px;
 	margin: 0px auto;
 }
 
 /* 底部 */
 footer{
 	text-align: center;
+	clear: both;
 }

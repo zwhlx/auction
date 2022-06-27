@@ -46,4 +46,11 @@ public class AuctionServiceTests {
     public void findByissend(){
         System.out.println(auctionService.findByisend(0));
     }
+
+    @Test
+    public void isend(){
+        Auction auction =new Auction();
+        auction.setAid(1);
+        auctionService.Isend(auction);
+    }
 }

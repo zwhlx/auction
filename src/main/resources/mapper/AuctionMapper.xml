@@ -15,6 +15,9 @@
         DELETE FROM t_auctions WHERE aid=#{aid}
     </delete>
 <!--    改-->
+    <update id="updateIsend">
+        UPDATE t_auctions SET isend = #{isend} WHERE aid = #{aid}
+    </update>
 <!--    查-->
     <select id="findByAid" resultType="com.fifth.auction.emtity.Auction">
         SELECT * FROM t_auctions WHERE aid = #{aid}

@@ -74,4 +74,17 @@ public class AuctionServiceImpl implements IAuctionService {
     public ArrayList<Auction> findByownerid(Integer ownerid) {
         return auctionMapper.findByOwnerid(ownerid);
     }
+
+    @Override
+    public void Isend(Auction auction) {
+        Integer aid=auction.getAid();
+        auction=auctionMapper.findByAid(aid);
+        if (auction==null){throw new AuctionNotExistException("找不到拍卖品");}
+        if (new Date().getTime()>=auction.getEndtime().getTime()||auction.getIsend()==0){
+            auction.setIsend(1);
+        }else {
+            auction.setIsend(0);
+        }
+        auctionMapper.updateIsend(auction);
+    }
 }

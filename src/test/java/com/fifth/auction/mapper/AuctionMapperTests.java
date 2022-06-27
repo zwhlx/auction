@@ -57,6 +57,14 @@ public class AuctionMapperTests {
         System.out.println(auctionMapper.findByOwnerid(11));
     }
 
+    @Test
+    public void updateIsend(){
+        Auction a=new Auction();
+        a.setAid(1);
+        a.setIsend(0);
+        System.out.println(auctionMapper.updateIsend(a));
+    }
+
 
 
 }

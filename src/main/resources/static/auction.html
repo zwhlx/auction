@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>第五小组拍卖系统</title>
+		<!--导入核心文件-->
+		<script src="/js/jquery-3.6.0.js"></script>
+		<link href="css/body.css" type="text/css" rel="stylesheet"/>
+		<link href="css/topnav.css" type="text/css" rel="stylesheet"/>
+		
+		<link href="css/auction.css" type="text/css" rel="stylesheet"/>
+		
+		
+	</head>
+	<body>
+		<!--头部-->
+		<header class="header">
+		</header>
+		<!--头部结束-->
+		
+		<!-- 导航栏-->
+			<div class="topnav">
+			    <a href="../index.html">首页</a>
+			    <a href="../guwan.html">古玩</a>
+			    <a href="../fangchan.html">房产</a>
+			    <a href="../qiche.html" >汽车</a>
+			    <a class="../user" href="login.html" style="float: right;">登录</a>
+			</div>
+		
+		<!--主体-->
+		<div class="container">
+				<div>
+					<div class="auc-img">
+						<div data="1" class="img-big big-show">
+							<img id="auction-image" src="img/bg2.jpg" class="responsive" />
+						</div>
+						
+					</div>
+					<div id="a">
+						<div id="auction-div">
+							<h3 id="auction-title">商品标题</h3>
+							<div class="current-auc">
+								<small>起拍时间：</small> <span id="auction-start-time">0000-00-00 00:00:00</span><br/><br/>
+								<small>结束时间：</small> <span id="auction-stop-time">0000-00-00 00:00:00</span><br/><br/>
+								<small>起拍价：</small> ¥<span id="auction-start-price">999999</span><br/><br/>
+								<small>当前价：</small> ¥<span id="auction-current-price">999999</span><br/><br/>
+								<small>当前最高出价者：</small> <span id="current-user-name"> </span><br/><br/>
+							</div>
+							<form class="auction-form">
+								<input name="price" type="text" placeholder="请输入价格">
+								<input class="btn" type="button" value="竞价">
+							</form>
+							<div class="stop-time">
+								<small>剩余拍卖时间：</small> <span id="auction-time">00:00:00</span><br/><br/>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+		</div>
+	
+	
+	
+	
+		<!--页脚开始-->
+		<footer class="footer">
+			<!-- 页面底部-备案号 #footer -->
+			<div>
+				Copyright © 2022  <b style="color: #0000ff;">20移动2班第五小组</b> 版权所有
+			</div>
+		</footer>
+		<!--页脚结束-->
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$.ajax({
+				url:"auctions/get_auction",
+				type:"get",
+				data:{"aid":getUrlParam("id")},
+				dataType:"JSON",
+				success(json){
+					data=json.data;
+					// $("#auction-image").setAttribute("scr","img/bg.jpg");
+					$("#auction-start-time").text(new Date(data.starttime).toLocaleString());
+					$("#auction-stop-time").text(new Date(data.endtime).toLocaleString());
+					$("#auction-start-price").text(data.startprice);
+					$("#auction-current-price").text(data.currentprice);
+					$("#current-user-name").text(data.currentserid);
+					if (data.isend==0&&fix(data.endtime==null)){
+						updateUrl(data.aid);
+					}
+					$("#auction-time").text(fix(data.endtime));
+					setInterval(function(){
+						if (data.isend==0&&fix(data.endtime==null)){
+							updateUrl(data.aid);
+						}
+						$("#auction-time").text(fix(data.endtime));
+					},1000);
+				},error(json){}
+			});
+		});
+
+		function updateUrl(aid){
+			$.post("auctions/isend",{aid:aid},function (json) {
+				if (json.state=200){
+					location.reload();
+				}
+			});
+		}
+
+		function fix(etime){
+			stime = new Date();
+			if(stime - etime>0){
+				time=stime-etime;
+				H=Math.floor(time1/1000/60/60);
+				if (H<10){H="0"+H;}
+				m=Math.floor(time1/1000/60%60);
+				if (m<10){m="0"+m;}
+				s=Math.floor(time1/1000%60);
+				if (s<10){s="0"+s;}
+				// console.log(H+":"+m+":"+s);
+				return H+":"+m+":"+s;
+			}else {
+				return null;
+			}
+		}
+
+
+		function getUrlParam(id) {
+			var regExp = new RegExp('([?]|&)' + id+ '=([^&]*)(&|$)');
+			var result = window.location.href.match(regExp);
+			if (result) {
+				return decodeURIComponent(result[2]);
+			} else {
+				return null;
+			}
+		};
+	</script>
+		
+	</body>
+</html>

@@ -79,29 +79,37 @@
             success: function (json) {
                 if (json.state == 200) {
                     array = json.data;
+                    var isreload=0;
                     for (var auctions of array) {
                         div = "<div class=\"responsive\">" +
                             "<div class=\"img\">" +
                             "<a target=\"_blank\" href=\"#{url}\">" +
                             "<div class='img_div'><img src=\"#{img_url}\"  width=\"300\" height=\"200\" alt=\"img\"></div>" +
                             "<div class=\"desc\">#{detail}</div>" +
-                            "<div class=\"time\">开始时间#{stime}</div>" +
-                            "<div class=\"time\">结束时间#{etime}</div>" +
+                            "<div class=\"time\">开始时间：#{stime}</div>" +
+                            "<div class=\"time\">结束时间：#{etime}</div>" +
                             "</a>" +
                             "</div>" +
                             "</div>";
-                        div = div.replace("#{url}", "url");
+                        div = div.replace("#{url}", "../auction.html?id="+auctions.aid);
                         div = div.replace("#{img_url}", auctions.img);
                         div = div.replace("#{detail}", auctions.auctionname);
-                        div = div.replace("#{stime}", auctions.starttime);
-                        div = div.replace("#{etime}", auctions.endtime);
-                        if (auctions.isend == 1) {
-                            $(".rows_1").append(div)
+                        stime=new Date(auctions.starttime).toLocaleString();
+                        etime=new Date(auctions.endtime).toLocaleString();
+                        div = div.replace("#{stime}", stime);
+                        div = div.replace("#{etime}", etime);
+                        if (auctions.isend == 0) {
+                            if (new Date().toLocaleString()>=etime){
+                                isreload=1;
+                                $.post("auctions/isend",{aid:auctions.aid},function (json) {});
+                            }
+                            $(".rows_0").append(div);
                         } else {
 
-                            $(".rows_0").append(div)
+                            $(".rows_1").append(div);
                         }
                     }
+                    if (isreload==1){location.reload();}
                 } else {
                     alert("未知错误");
                 }

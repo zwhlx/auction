@@ -1,0 +1,66 @@
+/* .container{
+	m
+}
+ */
+#a{
+	padding: 30px;
+}
+
+#a #auction-title{
+	font-size: 36px;
+	text-align: center;
+}
+
+
+.current-auc small{
+	padding-bottom: 18px;
+	font-size: 15px;
+	float: left;
+	text-align: right;
+	margin-left: 100px;
+}
+
+.current-auc span{
+	font-size: 30px;
+}
+
+
+
+.auc-img{
+	padding: 30px;
+	width: 399px;
+	overflow: hidden;
+	float: left;
+}
+
+.img-big {
+	overflow: hidden;
+	max-width: 426px;width: 426px;
+	max-height: 500px;
+	display: block;
+	border: 2px solid #aaaaaa;
+	border-radius: 3px;
+	margin: 0;
+	padding: 0;
+}
+
+.auction-form{
+	text-align: center;
+}
+
+.auction-form input {
+	font-size: 20px;
+}
+
+.stop-time {
+	margin:10px;
+	text-align: center;
+}
+.stop-time small{
+	font-size: 20px;
+}
+.stop-time span{
+	font-size: 25px;
+	color: #ff0000;
+}
+

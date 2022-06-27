@@ -19,6 +19,8 @@ public interface IAuctionService {
 
     ArrayList<Auction> findByownerid(Integer ownerid);
 
+    void Isend(Auction auction);
+
 
 
 }
