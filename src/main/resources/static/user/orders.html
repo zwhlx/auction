@@ -9,6 +9,7 @@
 
     <link href="../css/index.css" rel="stylesheet" type="text/css"/>
 	<link href="../css/user/user.css" rel="stylesheet" type="text/css"/>
+	<link href="../css/admin/admin.css" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
@@ -17,7 +18,7 @@
 	<a class="index" href="../index.html">首页</a>
     <div class="top-item">
     	<ul class="pull-right">
-    		<li><a href="orders.html">&nbsp;记录</a></li>
+			<li><a href="#" onclick="logout()"><span class="logout"></span>&nbsp;注销</a></li>
     		<li class="li-split">|</li>
     		<li>
     			<!--下列列表按钮 ：管理-->
@@ -30,8 +31,7 @@
     				</ul>
     			</div>
     		</li>
-    		<li class="li-split">|</li>
-    		<li><a href="#" onclick="logout()"><span class="logout"></span>&nbsp;注销</a></li>
+    		
     	</ul>
     </div>
 </header>
@@ -46,36 +46,33 @@
 <!--主体-->
 	<div class="main">
 	
-		<div class="panel">
-			<div class="box">
-				<ul class="tabs">
-					<li><a href="user.html">个人资料</a></li>
-					<li class="active"><a href="#">修改密码</a></li>
-					<li><a href="addauction.html">发布拍卖</a></li>
-				</ul>
-			</div>
-			<div class="panel-body">
-				<!--修改资料表单开始-->
-				<form id="form-change-pwd">
-					<div class="form-group">
-						<label class="label">旧密码：</label>
-						<input id="oldpassword" name="oldpassword" type="password" placeholder="请输入旧密码" value="">
-					</div>
-					<div class="form-group">
-						<label class="label">新密码：</label>
-						<input id="newpassword" name="newpassword" type="password" placeholder="请输入新密码" value="">
-					</div>
-					<div class="form-group">
-						<label class="label">重复密码：</label>
-						<input type="password" placeholder="重复密码" value="">
-					</div>
-					
-					<div class="form-group2">
-						<input id="btn-change-pwd" type="button" class="btn" value="确认" />
-					</div>
-				</form>
-			</div>
-		</div>
+	<table border="1">
+	    <tr id="title">
+	        <th>用户ID</th>
+	        <th>用户名</th>
+	        <th>性别</th>
+	        <th>手机号</th>
+	        <th>地址</th>
+	        <th>邮箱</th>
+	        <th>注册时间</th>
+	        <th>用户组</th>
+	        <th>删除</th>
+	    </tr>
+		
+		<tr id="1">
+		    <td>uid</td>
+		    <td>username</td>
+		    <td>gender</td>
+		    <td>mobilephone</td>
+		    <td>address</td>
+		    <td>email</td>
+		    <td>createtime</td>
+		    <td>admin</td>
+		    <td><button class="delete_but" style="color: red;">删除</button></td>
+		</tr>
+		
+	</table>
+		
 
 	</div>
 
