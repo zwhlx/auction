@@ -19,6 +19,8 @@ public interface IAuctionService {
 
     ArrayList<Auction> findByownerid(Integer ownerid);
 
+    ArrayList<Auction> findByendCid(Integer currentserid);
+
     void Isend(Auction auction);
 
     void updateHighestBidder(Auction auction);

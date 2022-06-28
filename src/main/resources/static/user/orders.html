@@ -47,31 +47,32 @@
 <div class="main">
 
 	<table border="1">
-		<tr id="title">
-			<th>用户ID</th>
-			<th>用户名</th>
-			<th>性别</th>
-			<th>手机号</th>
-			<th>地址</th>
-			<th>邮箱</th>
-			<th>注册时间</th>
-			<th>用户组</th>
-			<th>删除</th>
+		<caption>我发布的拍卖</caption>
+		<tr class="my_auction">
+			<th>是否结束</th>
+			<th>种类</th>
+			<th>拍卖品名称</th>
+			<th>开始拍卖时间</th>
+			<th>拍卖结束时间</th>
+			<th>起拍价</th>
+			<th>最高价</th>
+			<th>最高价用户</th>
 		</tr>
-
-		<tr id="1">
-			<td>uid</td>
-			<td>username</td>
-			<td>gender</td>
-			<td>mobilephone</td>
-			<td>address</td>
-			<td>email</td>
-			<td>createtime</td>
-			<td>admin</td>
-			<td><button class="delete_but" style="color: red;">删除</button></td>
-		</tr>
-
 	</table>
+
+	<table border="1">
+		<caption>成功拍到</caption>
+		<tr class="my_get_auction">
+			<th>种类</th>
+			<th>拍卖人</th>
+			<th>拍卖品名称</th>
+			<th>开始拍卖时间</th>
+			<th>拍卖结束时间</th>
+			<th>起拍价</th>
+			<th>最高价</th>
+		</tr>
+	</table>
+
 
 
 </div>
@@ -85,11 +86,104 @@
 	</div>
 </footer>
 <script type="text/javascript">
+	$(document).ready(function () {
+		$.post("../auctions/find_by_ownerid",function (json) {
+			if (json.state==200) {
+				datas = json.data;
+				// console.log(datas);
+				for (var auc of datas) {
+					var str = "<tr id=\"#{aid}\">" +
+							"<td>#{isend}</td>" +
+							"<td>#{category}</td>" +
+							"<td>#{auctionname}</td>\n" +
+							"<td>#{starttime}</td>" +
+							"<td>#{endtime}</td>" +
+							"<td>#{startprice}</td>" +
+							"<td>#{currentprice}</td>" +
+							"<td>#{currentuser}</td>" +
+							"</tr>";
+
+					str = str.replaceAll("#{uid}", auc.aid);
+					if (auc.isend == 1){
+						str = str.replace("#{isend}", "已结束");
+					}else {
+						str = str.replace("#{isend}", "拍卖中");
+					}
+
+					if (auc.category == 1) {
+						str = str.replace("#{category}", "古玩");
+					} else if (auc.category == 2){
+						str = str.replace("#{category}", "房产");
+					}else {
+						str = str.replace("#{category}", "汽车");
+					}
+					str = str.replace("#{auctionname}", auc.auctionname);
+					stime = new Date(auc.starttime).toLocaleString();
+					etime = new Date(auc.endtime).toLocaleString();
+					str = str.replace("#{starttime}",stime);
+					str = str.replace("#{endtime}", etime);
+
+					str = str.replace("#{startprice}", auc.startprice);
+					if (auc.currentprice==null){
+						str = str.replace("#{currentprice}", "无");
+					}else {
+						str = str.replace("#{currentprice}",  auc.currentprice);
+					}
+					if (auc.currentuser==null){
+						str = str.replace("#{currentuser}", "无");
+					}else {
+						str = str.replace("#{currentuser}",  auc.currentuser);
+					}
+					$(".my_auction").after(str);
+				}
+			}
+		});
+
+		$.post("../auctions/find_by_isend_currentserid",function (json) {
+			if (json.state==200) {
+				datas = json.data;
+				// console.log(datas);
+				for (var auc of datas) {
+					var str = "<tr id=\"#{aid}\">" +
+							"<td>#{category}</td>" +
+							"<td>#{ownername}</td>" +
+							"<td>#{auctionname}</td>\n" +
+							"<td>#{starttime}</td>" +
+							"<td>#{endtime}</td>" +
+							"<td>#{startprice}</td>" +
+							"<td>#{currentprice}</td>" +
+							"</tr>";
+
+					str = str.replaceAll("#{uid}", auc.aid);
+
+					if (auc.category == 1) {
+						str = str.replace("#{category}", "古玩");
+					} else if (auc.category == 2){
+						str = str.replace("#{category}", "房产");
+					}else {
+						str = str.replace("#{category}", "汽车");
+					}
+
+					str = str.replace("#{ownername}", auc.ownername);
+					str = str.replace("#{auctionname}", auc.auctionname);
+					stime = new Date(auc.starttime).toLocaleString();
+					etime = new Date(auc.endtime).toLocaleString();
+					str = str.replace("#{starttime}",stime);
+					str = str.replace("#{endtime}", etime);
+
+					str = str.replace("#{startprice}", auc.startprice);
+					str = str.replace("#{currentprice}",  auc.currentprice);
+					$(".my_get_auction").after(str);
+				}
+			}
+		});
+	});
+
+
 	function logout() {
 		$.get("../users/logout",function () {
 			location.href="../login.html";
 		});
-
 	}
 </script>
 <!--页脚结束-->

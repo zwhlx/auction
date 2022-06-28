@@ -66,4 +66,24 @@ public class AuctionController extends BaseController{
         return new JSONResult<>(OK);
     }
 
+    @RequestMapping("find_by_ownerid")
+    public JSONResult<ArrayList<Auction>> findByOwnerid(HttpSession session){
+        Integer uid = getUidFromSession(session);
+        if (uid == null ){
+            return null;
+        }
+        ArrayList<Auction> data = auctionService.findByownerid(uid);
+        return new JSONResult<>(OK,data);
+    }
+
+    @RequestMapping("find_by_isend_currentserid")
+    public JSONResult<ArrayList<Auction>> findByisendCid(HttpSession session){
+        Integer uid = getUidFromSession(session);
+        if (uid == null ){
+            return null;
+        }
+        ArrayList<Auction> data = auctionService.findByendCid(uid);
+        return new JSONResult<>(OK,data);
+    }
+
 }

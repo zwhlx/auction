@@ -43,6 +43,10 @@
         SELECT * FROM t_auctions WHERE ownerid=#{ownerid}
     </select>
 
+    <select id="findByisendCid" resultType="com.fifth.auction.emtity.Auction">
+        SELECT * FROM t_auctions WHERE isend=#{isend} and currentserid=#{currentserid}
+    </select>
+
 
 
 </mapper>

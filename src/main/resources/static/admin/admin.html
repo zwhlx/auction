@@ -79,7 +79,7 @@
 		$.post("../users/get_all",function (json){
 			if (json.state==200) {
 				datas = json.data;
-				console.log(datas);
+				// console.log(datas);
 				for (var user of datas) {
 					var str = "<tr id=\"#{uid}\">" +
 							"<td>#{uid}</td>" +

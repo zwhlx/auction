@@ -103,6 +103,11 @@ public class AuctionServiceImpl implements IAuctionService {
         return auctionMapper.findByOwnerid(ownerid);
     }
 
+    @Override
+    public ArrayList<Auction> findByendCid(Integer currentserid) {
+        return auctionMapper.findByisendCid(1,currentserid);
+    }
+
     /**
      * 更新拍卖状态
      * @param auction 拍卖信息

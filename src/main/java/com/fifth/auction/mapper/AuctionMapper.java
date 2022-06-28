@@ -33,4 +33,6 @@ public interface AuctionMapper {
 
     ArrayList<Auction> findByOwnerid(Integer ownerid);
 
+    ArrayList<Auction> findByisendCid(Integer isend,Integer currentserid);
+
 }
