@@ -23,9 +23,9 @@
     <update id="updateIntoByUid">
         UPDATE t_user
                           <set>
-                              <if test="gender!=null">gender = #{gender}</if>
-                              <if test="mobilephone!=null">mobilephone = #{mobilephone}</if>
-                              <if test="address!=null">address = #{address}</if>
+                              <if test="gender!=null"> gender = #{gender},</if>
+                              <if test="mobilephone!=null">mobilephone = #{mobilephone},</if>
+                              <if test="address!=null">address = #{address},</if>
                               <if test="email!=null">email = #{email}</if>
                       </set>
                       WHERE uid = #{uid}
@@ -38,5 +38,9 @@
 
     <select id="findByUid" resultType="com.fifth.auction.emtity.User">
         SELECT * FROM t_user WHERE uid = #{uid}
+    </select>
+
+    <select id="getAll" resultType="com.fifth.auction.emtity.User">
+        SELECT * FROM t_user
     </select>
 </mapper>

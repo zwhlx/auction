@@ -2,6 +2,8 @@ package com.fifth.auction.service;
 
 import com.fifth.auction.emtity.User;
 
+import java.util.ArrayList;
+
 
 public interface IUserService {
     void reg(User user);
@@ -13,4 +15,8 @@ public interface IUserService {
     void UpdataInfo(Integer uid,User user);
 
     void DeleteUser(Integer uid);
+
+    User getUserInfo(Integer uid);
+
+    ArrayList<User> getAll(Integer uid);
 }

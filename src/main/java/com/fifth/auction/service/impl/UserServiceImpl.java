@@ -8,6 +8,8 @@ import com.fifth.auction.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired
@@ -107,5 +109,25 @@ public class UserServiceImpl implements IUserService {
         if (rows!=1){
             throw new UpdateException("更新失败,产生了未知异常");
         }
+    }
+
+    @Override
+    public User getUserInfo(Integer uid) {
+        User result =userMapper.findByUid(uid);
+        if (result == null)  {
+            throw new UserNotExistException("用户不存在");
+        }
+        result.setPassword(null);
+        result.setSalt(null);
+        return result;
+    }
+
+    @Override
+    public ArrayList<User> getAll(Integer uid) {
+        User result=userMapper.findByUid(uid);
+        if (result.getAdmin()!=1){
+            throw new NoAdminPermissionException("没有权限");
+        }
+        return userMapper.getAll();
     }
 }

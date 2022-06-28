@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("users")
@@ -73,9 +74,26 @@ public class UserController extends BaseController{
 
     @RequestMapping("update_info")
     public JSONResult<Void> UpdateInfo(User user , HttpSession session){
+        if (user.getEmail()==null && user.getGender()==null && user.getAddress()==null && user.getMobilephone()==null){
+            return new JSONResult<>(OK);
+        }
         Integer uid = getUidFromSession(session);
         userService.UpdataInfo(uid,user);
         return new JSONResult<>(OK);
+    }
+
+    @RequestMapping("get_info")
+    public JSONResult<User> getUserInfo(HttpSession session){
+        Integer uid = getUidFromSession(session);
+        User data=userService.getUserInfo(uid);
+        return new JSONResult<>(OK,data);
+    }
+
+    @RequestMapping("get_all")
+    public JSONResult<ArrayList<User>> getAll(HttpSession session){
+        Integer uid = getUidFromSession(session);
+        ArrayList<User> data=userService.getAll(uid);
+        return new JSONResult<>(OK,data);
     }
 
 }

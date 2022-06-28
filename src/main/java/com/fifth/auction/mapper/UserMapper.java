@@ -3,6 +3,8 @@ package com.fifth.auction.mapper;
 import com.fifth.auction.emtity.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Repository
 public interface UserMapper {
 
@@ -22,6 +24,8 @@ public interface UserMapper {
     User findByUsername(String username);
 
     User findByUid(Integer uid);
+
+    ArrayList<User> getAll();
 
 
 

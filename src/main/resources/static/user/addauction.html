@@ -56,10 +56,10 @@
 			</div>
 			<div class="panel-body">
 				<!--修改资料表单开始-->
-				<form id="form-change-info">
+				<form id="form-release-auction">
 					<div class="form-group">
 						<label class="label">拍卖品名称：</label>
-						<input id="auctionname" type="text" placeholder="请输入拍卖品名称">
+						<input id="auctionname" name="auctionname" type="text" placeholder="请输入拍卖品名称">
 					</div>
 					<div class="form-group">
 						<label class="label">起拍价：</label>
@@ -84,7 +84,7 @@
 						</label>
 					</div>
 					<div class="form-group2">
-						<input id="btn-release-info" type="button" class="btn" value="发布" />
+						<input id="btn-release-auction" type="button" class="btn" value="发布" />
 					</div>
 				</form>
 			</div>
@@ -101,6 +101,45 @@
     </div>
 </footer>
 <script type="text/javascript">
+	$("#btn-release-auction").click(function (){
+		if ($("#auctionname").val()==null||$("#startprice").val()==null||$("#endtime").val()==null||$('input[name="category"]:checked').val()==null){
+			// console.log($("#auctionname").val());
+			// console.log($("#startprice").val());
+			// console.log($("#endtime").val());
+			// console.log($('input[name="category"]:checked').val());
+			alert("数据为空");
+			return null;
+		}
+		stime=new Date();
+		etime=new Date($("#endtime").val());
+		if (etime<=stime){
+			alert("结束时间应大于开始时间");
+		}else {
+			$.ajax({
+				url: "../auctions/add_auction",
+				type: "POST",
+				dataType: "JSON",
+				data: {"auctionname":$("#auctionname").val(),
+					"startprice":$("#startprice").val(),
+					"endtime":new Date($("#endtime").val()),
+					"category":$('input[name="category"]:checked').val()
+				},
+				success(json) {
+					if (json.state == 200) {
+						alert("发布成功");
+					} else {
+						alert("未知异常" + json.status + json.message);
+					}
+				},
+				error(xhr) {
+					alert("未知异常" + xhr.status);
+				}
+			});
+		}
+	});
+
+
+
 	function logout() {
 		$.get("../users/logout",function () {
 			location.href="../login.html";

@@ -89,12 +89,12 @@
 					
 					<div class="form-group1">
 						<label class="label">注册时间：</label>
-						<span>0000/00/00 00:00:00</span>
+						<span class="time">0000/00/00 00:00:00</span>
 					</div>
 					
 					<div class="form-group1">
 						<label class="label">用户组：</label>
-						<span>普通用户</span>
+						<span class="admin">普通用户</span>
 					</div>
 					
 					<div class="form-group2">
@@ -115,10 +115,44 @@
     </div>
 </footer>
 <script type="text/javascript">
+	$(document).ready(function () {
+		$.post("../users/get_info",function (json) {
+			if (json.state==200){
+				userInfo=json.data;
+				$("#username").val(userInfo.username);
+				if (userInfo.gender!=null){
+				let radio = userInfo.gender == 0 ? $("#gender-female") : $("#gender-male");
+				radio.prop("checked", "checked");}
+				$("#mobilephone").val(userInfo.mobilephone);
+				$("#address").val(userInfo.address);
+				$("#email").val(userInfo.email);
+				if (userInfo.admin==0){
+					$(".admin").text("普通用户");
+				}else {$(".admin").text("管理员");}
+				$(".time").text(new Date(userInfo.createtime).toLocaleString());
+			}
+		});
+	});
+
+	$("#btn-change-info").click(function () {
+		$.ajax({
+			url : "../users/update_info",
+			data : $("#form-change-info").serialize(),
+			type : "POST",
+			dataType:"JSON" ,
+			success(json){
+				if (json.state==200){alert("提交成功");}else {alert("失败"+json.state+json.message);}
+			},
+			error(xhr){
+				alert("未知错误"+xhr.status);
+			}
+		});
+	});
+
+
 	function logout() {
 		$.get("../users/logout",function () {
 			location.href="../login.html";
-
 		});
 
 	}
