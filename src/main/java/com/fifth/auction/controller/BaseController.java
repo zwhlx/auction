@@ -47,8 +47,14 @@ public class BaseController {
             result.setState(6001);
             result.setMessage(e.getMessage());//拍卖价格的问题
         }else if(e instanceof AuctionTimeException){
-            result.setState(6001);
+            result.setState(6002);
             result.setMessage(e.getMessage());//拍卖时间的问题
+        }else if(e instanceof FileForNullException){
+            result.setState(6003);
+            result.setMessage(e.getMessage());//拍卖图片文件为空的异常
+        }else if(e instanceof FileUploadIOException){
+            result.setState(6004);
+            result.setMessage(e.getMessage());//拍卖图片文件上传的异常
         }
         return result;
     }

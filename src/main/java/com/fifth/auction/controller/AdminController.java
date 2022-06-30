@@ -15,8 +15,14 @@ public class AdminController extends BaseController{
     @Autowired
     private IAdminLogService adminLogService;
 
+    /**
+     * 删除用户
+     * @param uid 用户ID
+     * @param session session
+     * @return JSONResult
+     */
     @RequestMapping("user_delete")
-    public JSONResult<Void> UpdateInfo(Integer uid, HttpSession session){
+    public JSONResult<Void> delete_user_Info(Integer uid, HttpSession session){
         Integer adminuid = getUidFromSession(session);
         AdminLog adminLog = getAdminLog();
         adminLog.setUserid(uid);

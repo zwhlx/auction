@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 拍卖时间的异常 */
 public class AuctionTimeException extends ServiceException{
     public AuctionTimeException() {
         super();

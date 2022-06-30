@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 用户名被占用的异常 */
 public class UsernameDuplicatedException extends ServiceException{
 
     public UsernameDuplicatedException() {

@@ -27,6 +27,7 @@
     					<li><a href="user.html">个人资料</a></li>
     					<li><a href="password.html">修改密码</a></li>
     					<li><a href="addauction.html">发布拍卖</a></li>
+						<li><a href="../admin/admin.html">管理用户</a></li>
     				</ul>
     			</div>
     		</li>
@@ -56,7 +57,7 @@
 			</div>
 			<div class="panel-body">
 				<!--修改资料表单开始-->
-				<form id="form-release-auction">
+				<form id="form-release-auction" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="label">拍卖品名称：</label>
 						<input id="auctionname" name="auctionname" type="text" placeholder="请输入拍卖品名称">
@@ -83,6 +84,11 @@
 							<input id="category-qiche" type="radio" name="category" value="3">汽车
 						</label>
 					</div>
+
+					<div class="form-group">
+						<input id="file" type="file" name="file" accept="image/*">
+					</div>
+
 					<div class="form-group2">
 						<input id="btn-release-auction" type="button" class="btn" value="发布" />
 					</div>
@@ -102,11 +108,7 @@
 </footer>
 <script type="text/javascript">
 	$("#btn-release-auction").click(function (){
-		if ($("#auctionname").val()==null||$("#startprice").val()==null||$("#endtime").val()==null||$('input[name="category"]:checked').val()==null){
-			// console.log($("#auctionname").val());
-			// console.log($("#startprice").val());
-			// console.log($("#endtime").val());
-			// console.log($('input[name="category"]:checked').val());
+		if ($("#auctionname").val()==null||$("#startprice").val()==null||$("#endtime").val()==null||$('input[name="category"]:checked').val()==null||$("#file").val()==null){
 			alert("数据为空");
 			return null;
 		}
@@ -115,15 +117,19 @@
 		if (etime<=stime){
 			alert("结束时间应大于开始时间");
 		}else {
+			var formData = new FormData($( "#formxx" )[0]);
+			formData.append('auctionname',$("#auctionname").val());
+			formData.append('startprice',$("#startprice").val());
+			formData.append('endtime',etime);
+			formData.append('category',$('input[name="category"]:checked').val());
+			formData.append('file',$("#file")[0].files[0]);
 			$.ajax({
 				url: "../auctions/add_auction",
 				type: "POST",
 				dataType: "JSON",
-				data: {"auctionname":$("#auctionname").val(),
-					"startprice":$("#startprice").val(),
-					"endtime":new Date($("#endtime").val()),
-					"category":$('input[name="category"]:checked').val()
-				},
+				data: formData,
+				processData: false,
+				contentType: false,
 				success(json) {
 					if (json.state == 200) {
 						alert("发布成功");

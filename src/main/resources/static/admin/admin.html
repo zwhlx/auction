@@ -96,10 +96,12 @@
 					// console.log(user.uid)
 					str = str.replaceAll("#{uid}", user.uid);
 					str = str.replace("#{username}", user.username);
-					if (user.gender == 1) {
+					if (user.gender == 0) {
 						str = str.replace("#{gender}", "女");
-					} else {
+					} else if (user.gender==1){
 						str = str.replace("#{gender}", "男");
+					}else {
+						str = str.replace("#{gender}", null);
 					}
 					str = str.replace("#{mobilephone}", user.mobilephone);
 					str = str.replace("#{address}", user.address);
@@ -126,11 +128,12 @@
 	});
 
 	function deleteuser(uid) {
-		var r=confirm("按下按钮!");
+		var r=confirm("是否删除!");
 		if (r==true){
 			$.post("../admin/user_delete",{uid:uid},function (json) {
 				if (json.state==200){
 					alert("删除成功");
+					location.reload();
 				}else {
 					alert("删除失败" +","+ json.state+":" + json.message);
 				}

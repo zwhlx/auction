@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 异常基类 */
 public class ServiceException extends RuntimeException{
     public ServiceException() {
         super();

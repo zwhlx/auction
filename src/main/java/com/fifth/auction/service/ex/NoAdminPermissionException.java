@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 权限不够的异常 */
 public class NoAdminPermissionException extends ServiceException{
     public NoAdminPermissionException() {
         super();

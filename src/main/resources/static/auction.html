@@ -98,6 +98,7 @@
 				dataType:"JSON",
 				success(json){
 					data=json.data;
+					$("#auction-title").text(data.auctionname);
 					$("#auction-image").attr("src",data.img);
 					$("#auction-start-time").text(new Date(data.starttime).toLocaleString());
 					$("#auction-stop-time").text(new Date(data.endtime).toLocaleString());

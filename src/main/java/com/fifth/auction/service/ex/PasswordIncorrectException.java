@@ -1,6 +1,6 @@
 package com.fifth.auction.service.ex;
 
-/**密码错误*/
+/** 密码错误 */
 public class PasswordIncorrectException extends ServiceException{
     public PasswordIncorrectException() {
         super();

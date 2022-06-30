@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 更新数据时产生未知的异常 */
 public class UpdateException extends ServiceException{
     public UpdateException() {
         super();

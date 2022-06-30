@@ -1,6 +1,6 @@
 package com.fifth.auction.service.ex;
 
-/**找不到用户*/
+/** 找不到用户 */
 public class UserNotExistException extends ServiceException {
     public UserNotExistException() {
         super();

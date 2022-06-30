@@ -26,7 +26,7 @@ public class AuctionServiceTests {
         auction.setAuctionname("test测试");
         auction.setEndtime(new Date());
         auction.setStartprice(0.33);
-        auctionService.addAuction(auction);
+        auctionService.addAuction(auction,null,null);
     }
 
     @Test

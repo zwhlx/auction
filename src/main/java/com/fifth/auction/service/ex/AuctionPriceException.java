@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 拍卖价格的异常 */
 public class AuctionPriceException extends ServiceException{
     public AuctionPriceException() {
         super();

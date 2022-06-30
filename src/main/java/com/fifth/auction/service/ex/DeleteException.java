@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 删除数据时的异常 */
 public class DeleteException extends ServiceException{
     public DeleteException() {
         super();

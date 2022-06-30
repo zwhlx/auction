@@ -1,5 +1,6 @@
 package com.fifth.auction.service.ex;
 
+/** 数据插入时产生的异常 */
 public class InserException extends ServiceException{
     public InserException() {
         super();

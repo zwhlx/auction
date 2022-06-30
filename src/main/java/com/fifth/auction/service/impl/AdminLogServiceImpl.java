@@ -16,27 +16,32 @@ public class AdminLogServiceImpl implements IAdminLogService {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 删除用户
+     * @param adminLog 管理员操作日记
+     */
     @Override
     public void DeleteUser(AdminLog adminLog) {
-        User result_admin = userMapper.findByUid(adminLog.getAdminid());
+        User result_admin = userMapper.findByUid(adminLog.getAdminid()); //获取管理员ID
         if (result_admin==null){
-            throw new UserNotExistException("当前用户不存在");
+            throw new UserNotExistException("当前用户不存在"); //判断ID是否存在
         }
         if (result_admin.getAdmin()!=1){
-            throw new NoAdminPermissionException("没有管理员权限");
+            throw new NoAdminPermissionException("没有管理员权限"); //判断是否为管理员
         }
-        User result_user = userMapper.findByUid(adminLog.getUserid());
+        User result_user = userMapper.findByUid(adminLog.getUserid()); //获取要删除的用户信息
         if (result_user==null){
-            throw new UserNotExistException("用户不存在");
+            throw new UserNotExistException("用户不存在"); //判断用户是否存在
         }
         Integer rows = userMapper.delete(adminLog.getUserid());
-        if (rows==1){
+        /*判断是否执行成功*/
+        if (rows==1){ //成功添加管理员操作记录
             adminLog.setUsername(result_user.getUsername());
             adminLog.setAdminname(result_admin.getUsername());
             adminLog.setUsercreatetime(result_user.getCreatetime());
             adminLog.setData("管理员删除用户");
             adminLogMapper.insert(adminLog);
-        }else {
+        }else {//失败抛出异常
             throw new DeleteException("删除用户过程中发生了未知错误");
         }
 
